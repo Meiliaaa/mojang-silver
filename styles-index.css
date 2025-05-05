@@ -1,0 +1,65 @@
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #1E1E1E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 360px;
+  background: url('silver-jewelry.jpg') no-repeat center center;
+  background-size: cover;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.logo {
+  text-align: center;
+  margin-top: 200px;
+}
+
+.logo img {
+  width: 100px;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn.login {
+  background-color: #0F1626;
+  color: white;
+}
+
+.btn.register {
+  background-color: white;
+  color: #0F1626;
+  border: 1.5px solid #0F1626;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
