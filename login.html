@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - MOJANG Silver</title>
+  <style>
+    /* Reset dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #FFFFFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+
+    .back {
+      font-size: 18px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .back:hover {
+      color: #007bff;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .forgot-password {
+      text-align: right;
+      font-size: 12px;
+      margin-top: 5px;
+      color: #007bff;
+      cursor: pointer;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #0F1626;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .social-login {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+
+    .social-login img {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    .register {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .register a {
+      color: #FF0000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .register a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back" onclick="window.history.back()">&#8592; Back</div>
+    <h1>Welcome back! Glad to see you, Again!</h1>
+    <div class="form-group">
+      <input type="email" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+      <input type="password" placeholder="Enter your password">
+    </div>
+    <div class="forgot-password">Forgot Password?</div>
+    <button class="btn">Login</button>
+    <div class="social-login">
+      <img src="facebook-icon.png" alt="Facebook">
+      <img src="google-icon.png" alt="Google">
+      <img src="apple-icon.png" alt="Apple">
+    </div>
+    <div class="register">
+      Don’t have an account? <a href="#">Register Now</a>
+    </div>
+  </div>
+</body>
+</html>
