@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOJANG Silver - Welcome</title>
+  <style>
+    /* Reset dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #1E1E1E;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 90%; /* Gunakan persentase untuk responsivitas */
+      max-width: 360px;
+      background: url('silver-jewelry.jpg') no-repeat center center;
+      background-size: cover;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .logo {
+      text-align: center;
+      margin-top: 200px; /* Sesuaikan margin untuk layar kecil */
+    }
+
+    .logo img {
+      width: 100px; /* Perkecil ukuran logo */
+    }
+
+    .buttons {
+      margin-top: 30px; /* Sesuaikan margin */
+      display: flex;
+      flex-direction: column;
+      gap: 12px; /* Kurangi jarak antar tombol */
+    }
+
+    .btn {
+      padding: 12px; /* Kurangi padding tombol */
+      border: none;
+      border-radius: 8px;
+      font-size: 14px; /* Perkecil ukuran font */
+      cursor: pointer;
+    }
+
+    .btn.login {
+      background-color: #0F1626;
+      color: white;
+    }
+
+    .btn.register {
+      background-color: white;
+      color: #0F1626;
+      border: 1.5px solid #0F1626;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Media query untuk layar kecil */
+    @media (max-width: 768px) {
+      .logo {
+        margin-top: 150px; /* Sesuaikan margin untuk layar lebih kecil */
+      }
+
+      .logo img {
+        width: 80px; /* Perkecil logo lebih jauh */
+      }
+
+      .buttons {
+        gap: 10px; /* Kurangi jarak antar tombol */
+      }
+
+      .btn {
+        font-size: 12px; /* Perkecil font untuk layar kecil */
+        padding: 10px; /* Kurangi padding tombol */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="mojang-logo.png" alt="MOJANG Silver Logo">
+    </div>
+    <div class="buttons">
+      <button class="btn login" onclick="handleLogin()">Login</button>
+      <button class="btn register" onclick="handleRegister()">Register</button>
+    </div>
+  </div>
+  <script>
+    function handleLogin() {
+      alert('Login button clicked!');
+    }
+
+    function handleRegister() {
+      alert('Register button clicked!');
+    }
+  </script>
+</body>
+</html>
