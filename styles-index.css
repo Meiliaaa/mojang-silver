@@ -34,12 +34,6 @@ body {
   width: 100px;
 }
 
-.logo-text {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333; /* Warna teks */
-  margin-top: 10px; /* Jarak antara logo dan teks */
 }
 .buttons {
   margin-top: 30px;
