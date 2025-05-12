@@ -1,32 +1,22 @@
 import { useState } from "react";
 
-export default function Cart() {
+export default function ProductCard({ product }) {
   const [cart, setCart] = useState([]);
 
-  const addToCart = (item) => {
-    setCart([...cart, item]);
+  const addToCart = () => {
+    setCart([...cart, product]);
+    console.log("Keranjang saat ini:", cart);
   };
 
-  const removeFromCart = (index) => {
-    setCart(cart.filter((_, i) => i !== index));
-  };
   return (
-    <div>
-      <h2>Keranjang Belanja</h2>
-      <button onClick={() => addToCart({ name: "Produk A", price: 100 })}>
-        Tambah Produk A
-      </button>
-      <button onClick={() => addToCart({ name: "Produk B", price: 200 })}>
-        Tambah Produk B
-      </button>
-      <ul>
-        {cart.map((item, index) => (
-          <li key={index}>
-            {item.name} - Rp{item.price}
-            <button onClick={() => removeFromCart(index)}>Hapus</button>
-          </li>
-        ))}
-      </ul>
+    <div className="card">
+      <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+        <div className="text-center">
+          <button className="btn btn-outline-dark mt-auto" onClick={addToCart}>
+            Add to cart
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
