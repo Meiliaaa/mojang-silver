@@ -2,21 +2,22 @@ document.addEventListener("DOMContentLoaded", () => {
     let cartCount = 0;
     const cartBadge = document.querySelector(".badge");
 
-    // Tombol add to cart utama
+    // Tombol add to cart utama (produk utama di halaman)
     const mainAddToCartBtn = document.querySelector(".flex-shrink-0");
     if (mainAddToCartBtn) {
         mainAddToCartBtn.addEventListener("click", () => {
-            const qty = parseInt(document.getElementById("inputQuantity").value) || 1;
-            cartCount += qty;
+            const qtyInput = document.getElementById("inputQuantity");
+            const quantity = parseInt(qtyInput.value) || 1;
+            cartCount += quantity;
             cartBadge.textContent = cartCount;
         });
     }
 
-    // Semua tombol "Add to cart" di bagian produk terkait
-    const addToCartButtons = document.querySelectorAll(".card-footer a");
+    // Semua tombol "Add to cart" dari produk lainnya
+    const addToCartButtons = document.querySelectorAll(".card-footer a.btn");
     addToCartButtons.forEach(btn => {
         btn.addEventListener("click", (e) => {
-            e.preventDefault();
+            e.preventDefault(); // mencegah reload halaman
             cartCount += 1;
             cartBadge.textContent = cartCount;
         });
