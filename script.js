@@ -1,25 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let cartCount = 0;
-    const cartBadge = document.querySelector(".badge");
+  const cartCount = document.getElementById("cart-count");
 
-    // Tombol add to cart utama (produk utama di halaman)
-    const mainAddToCartBtn = document.querySelector(".flex-shrink-0");
-    if (mainAddToCartBtn) {
-        mainAddToCartBtn.addEventListener("click", () => {
-            const qtyInput = document.getElementById("inputQuantity");
-            const quantity = parseInt(qtyInput.value) || 1;
-            cartCount += quantity;
-            cartBadge.textContent = cartCount;
-        });
+  function updateCartBadge() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const total = cart.reduce((sum, item) => sum + item.qty, 0);
+    cartCount.textContent = total;
+  }
+
+  function addToCart(nama, harga, qty = 1) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existing = cart.find(item => item.nama === nama);
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      cart.push({ nama, harga, qty });
     }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartBadge();
+  }
 
-    // Semua tombol "Add to cart" dari produk lainnya
-    const addToCartButtons = document.querySelectorAll(".card-footer a.btn");
-    addToCartButtons.forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            e.preventDefault(); // mencegah reload halaman
-            cartCount += 1;
-            cartBadge.textContent = cartCount;
-        });
+  // Produk utama
+  const addToCartBtn = document.getElementById("addToCartBtn");
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener("click", () => {
+      const qty = parseInt(document.getElementById("inputQuantity").value) || 1;
+      addToCart("Cincin Silver Elegan", 45000, qty);
     });
+  }
+
+  // Produk terkait
+  const relatedButtons = document.querySelectorAll(".add-related");
+  relatedButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const nama = btn.getAttribute("data-nama");
+      const harga = parseInt(btn.getAttribute("data-harga"));
+      addToCart(nama, harga);
+    });
+  });
+
+  updateCartBadge();
 });
