@@ -14,7 +14,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Mojang Silver</a>
+        <a class="navbar-brand" href="#">Mojang Silver</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,7 +34,6 @@
               </ul>
             </li>
           </ul>
-          <!-- Tombol Cart -->
           <form class="d-flex">
             <a href="cart.html" class="btn btn-outline-dark">
               <i class="bi-cart-fill me-1"></i>
@@ -46,54 +45,12 @@
       </div>
     </nav>
 
-    <!-- Produk Detail -->
+    <!-- Produk dari Supabase -->
     <section class="py-5">
-      <div class="container px-4 px-lg-5 my-5">
-        <div class="row gx-4 gx-lg-5 align-items-center">
-          <div class="col-md-6">
-            <img class="card-img-top mb-5 mb-md-0" src="cincin1.jpg" alt="..." />
-          </div>
-          <div class="col-md-6">
-            <div class="small mb-1">berat: 2gram</div>
-            <h1 class="display-5 fw-bolder">Cincin Silver Elegan</h1>
-            <div class="fs-5 mb-5">
-              <span class="text-decoration-line-through">Rp50.000</span>
-              <span>Rp45.000</span>
-            </div>
-            <p class="lead">Cincin perak elegan berbentuk kupu-kupu. Ringan dan nyaman dipakai, cocok untuk hadiah atau koleksi pribadi.</p>
-            <div class="d-flex">
-              <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
-              <button class="btn btn-outline-dark flex-shrink-0" id="addToCartBtn" type="button">
-                <i class="bi-cart-fill me-1"></i>
-                Add to cart
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Produk Terkait -->
-    <section class="py-5 bg-light">
       <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">Related products</h2>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-          <!-- Satu contoh produk -->
-          <div class="col mb-5">
-            <div class="card h-100">
-              <img class="card-img-top" src="cincin1.jpg" alt="..." />
-              <div class="card-body p-4 text-center">
-                <h5 class="fw-bolder">Cincin Silver</h5>
-                Rp50.000
-              </div>
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto add-related" href="#" data-nama="Cincin Silver" data-harga="50000">Add to cart</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Tambahkan produk lain sesuai kebutuhan -->
+        <h2 class="fw-bolder mb-4">Produk Kami</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="product-list">
+          <p>Memuat produk...</p>
         </div>
       </div>
     </section>
@@ -105,8 +62,52 @@
       </div>
     </footer>
 
-    <!-- Script -->
-    <script src="scripts.js"></script>
+    <!-- Supabase dan Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+      const supabaseUrl = "https://YOUR_PROJECT_URL.supabase.co";
+      const supabaseKey = "YOUR_PUBLIC_ANON_KEY";
+      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+      document.addEventListener("DOMContentLoaded", loadProducts);
+
+      async function loadProducts() {
+        const { data, error } = await supabase.from("products").select("*");
+        const container = document.getElementById("product-list");
+        container.innerHTML = "";
+
+        if (error) {
+          container.innerHTML = `<p class='text-danger'>Gagal memuat produk: ${error.message}</p>`;
+          return;
+        }
+
+        data.forEach((item) => {
+          container.innerHTML += `
+            <div class="col mb-5">
+              <div class="card h-100">
+                <img class="card-img-top" src="${item.image_url}" alt="${item.name}" />
+                <div class="card-body p-4 text-center">
+                  <h5 class="fw-bolder">${item.name}</h5>
+                  Rp${item.price}
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center">
+                    <button class="btn btn-outline-dark mt-auto" onclick="addToCart('${item.name}')">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      function addToCart(nama) {
+        let count = parseInt(document.getElementById("cart-count").textContent);
+        count++;
+        document.getElementById("cart-count").textContent = count;
+        alert(`Produk \"${nama}\" ditambahkan ke keranjang.`);
+      }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
