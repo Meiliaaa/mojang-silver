@@ -1,43 +1,63 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const cartCount = document.getElementById("cart-count");
+// Fungsi untuk nambah produk utama ke keranjang
+document.addEventListener('DOMContentLoaded', function () {
+  const addToCartBtn = document.getElementById('addToCartBtn');
+  const quantityInput = document.getElementById('inputQuantity');
 
-  function updateCartBadge() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const total = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartCount.textContent = total;
-  }
+  addToCartBtn?.addEventListener('click', function () {
+    const product = {
+      id: 'cincin-silver-elegan',
+      name: 'Cincin Silver Elegan',
+      price: 45000,
+      quantity: parseInt(quantityInput.value),
+      image: 'cincin.jpg'
+    };
 
-  function addToCart(nama, harga, qty = 1) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existing = cart.find(item => item.nama === nama);
-    if (existing) {
-      existing.qty += qty;
-    } else {
-      cart.push({ nama, harga, qty });
-    }
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartBadge();
-  }
+    addToCart(product);
+  });
 
-  // Produk utama
-  const addToCartBtn = document.getElementById("addToCartBtn");
-  if (addToCartBtn) {
-    addToCartBtn.addEventListener("click", () => {
-      const qty = parseInt(document.getElementById("inputQuantity").value) || 1;
-      addToCart("Cincin Silver Elegan", 45000, qty);
-    });
-  }
-
-  // Produk terkait
-  const relatedButtons = document.querySelectorAll(".add-related");
-  relatedButtons.forEach(btn => {
-    btn.addEventListener("click", (e) => {
+  // Fungsi untuk produk terkait (pakai class .add-related)
+  const relatedBtns = document.querySelectorAll('.add-related');
+  relatedBtns.forEach(btn => {
+    btn.addEventListener('click', function (e) {
       e.preventDefault();
-      const nama = btn.getAttribute("data-nama");
-      const harga = parseInt(btn.getAttribute("data-harga"));
-      addToCart(nama, harga);
+
+      const product = {
+        id: btn.dataset.nama.toLowerCase().replace(/\s+/g, '-'),
+        name: btn.dataset.nama,
+        price: parseInt(btn.dataset.harga),
+        quantity: 1,
+        image: 'cincin1.jpg'
+      };
+
+      addToCart(product);
     });
   });
 
-  updateCartBadge();
+  // Update badge jumlah item di cart
+  updateCartCount();
 });
+
+// Fungsi utama untuk menambahkan ke cart
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const index = cart.findIndex(item => item.id === product.id);
+  if (index !== -1) {
+    cart[index].quantity += product.quantity;
+  } else {
+    cart.push(product);
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  alert('Produk berhasil ditambahkan ke keranjang!');
+}
+
+// Fungsi untuk update jumlah cart di navbar
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  const badge = document.getElementById('cart-count');
+  if (badge) badge.textContent = totalItems;
+}
